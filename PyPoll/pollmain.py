@@ -9,12 +9,9 @@ poll_csv = os.path.join("Resources", "election_data.csv")
 #total number of votes each candidate won
 #winner based on total/popular vote
 
-#due to large dataset, create dictionaries for easier reference
+#set dictionaries, large data set, use keys to complete analysis
 candidate_vote_cast = {}
 candidate_percent_vote = {}
-
-#list to store data
-#voter = []
 
 #initialize variables
 total_votes = 0
@@ -27,8 +24,8 @@ with open(poll_csv, newline="") as csvfile:
 	#iterate through rows
 	for row in csvreader:
 
-		#total number of votes cast
-		total_votes = total_votes + 1
+		#total number of votes cast, row count
+		total_votes += 1
 
 		#conditional to increment up by 1 for vote cast to each candidate
 		if row[2] in candidate_vote_cast:
@@ -58,13 +55,11 @@ print(f"Winner: {winner}")
 print("---------------------------")
 
 #Output Election Results to text
-output_path = os.path.join("PyPoll", "Election_Result_Summary.txt")
-with open(output_path, "w") as file:
-	file.write("Election Result Summary")
-	file.write("---------------------------")
-	file.write(f"Total Votes: {total_votes}")
-	for key in candidate_percent_vote:
-		file.write(f"{key}: {round(candidate_percent_vote[key][0],2)}% ({candidate_percent_vote[key][1]})")
-	file.write(f"Winner: {winner}")
-	file.write("---------------------------")
-	
+PyPoll = open("Election_Result_Summary.txt", "w+")
+PyPoll.write("Election Result Summary")
+PyPoll.write('\n' + "---------------------------")
+PyPoll.write('\n' + f"Total Votes: {total_votes}")
+for key in candidate_percent_vote:
+	PyPoll.write('\n' + f"{key}: {round(candidate_percent_vote[key][0],2)}% ({candidate_percent_vote[key][1]})")
+PyPoll.write('\n' + f"Winner: {winner}")
+PyPoll.write('\n' + "---------------------------")
